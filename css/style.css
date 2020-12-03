@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1rem;
+}
+
+.container {
+  width: 1170px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+
+.row {
+  display: -ms-grid;
+  display: grid;
+}
+
+.wrapper {
+  min-height: 100vh;
+}
+
+.progress {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.progress:last-of-type {
+  margin-bottom: 0;
+}
+
+.progress__top {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.progress__label {
+  font-size: 2rem;
+  font-weight: 400px;
+  line-height: 20px;
+  color: #777;
+}
+
+.progress__bottom {
+  display: inline-block;
+  width: 100%;
+  height: 6px;
+  background-color: #ccc;
+}
+
+.progress__bar {
+  width: 80%;
+  height: 100%;
+}
+
+.progress__bar-loader {
+  width: 0;
+  height: 100%;
+  background-color: aqua;
+}
+
+.progress__bar-loader--animate {
+  -webkit-animation: loading 2s forwards;
+          animation: loading 2s forwards;
+}
+
+@-webkit-keyframes loading {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=style.css.map */

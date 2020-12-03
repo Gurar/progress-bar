@@ -1,0 +1,56 @@
+.progress{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 30px;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &__top {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    &__label {
+        font-size: 2rem;
+        font-weight: 400px;
+        line-height: 20px;
+        color: #777;
+    }
+    &__value {
+
+    }
+    
+    &__bottom {
+        display: inline-block;
+        width: 100%;
+        height: 6px;
+        background-color: #ccc;
+    }
+
+    &__bar {
+        width: 80%;
+        height: 100%;
+        &-loader {
+            width: 0;
+            height: 100%;
+            background-color: aqua;
+            &--animate {
+                animation: loading 2s forwards;
+            }
+        }
+    }
+
+}
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}

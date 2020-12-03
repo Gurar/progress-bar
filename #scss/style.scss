@@ -1,0 +1,37 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+html {
+    font-size: 10px;
+    scroll-behavior: smooth;
+}
+
+body {
+	font-size: 1rem;
+}
+
+.container {
+	width: 1170px;
+	margin: 0 auto;
+	padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+}
+
+.row {
+	display: grid;
+}
+
+.wrapper {
+	min-height: 100vh;
+}
+
+@import '_progress.scss';
+
