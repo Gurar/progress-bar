@@ -14,6 +14,7 @@ const progressBarData = [
         title: 'UX',
         value: 40,
     },
+    
 ];
 
 export {progressBarData};

@@ -6,7 +6,6 @@ class RenderTemplate {
 
         this.DOM = null;
         this.arr = null;
-        this.templateValue = {};
         this.dataValue = {};
         this.regExp = {
             find: /{([^}]+)}/g,
@@ -20,38 +19,102 @@ class RenderTemplate {
         this.render();
     }
 
-    isValid() {
-
+    error(value) {
+        console.error(`ERROR: ${value}`);
     }
 
+    isValidTmpValue(value) {
+        if(value === null) {
+            this.error('template dont have a value for render');
+            return false;
+        }
+
+        return true;
+    }
+
+    isValidData(data) {
+        if(!Array.isArray(data)) {
+            this.error('data is not array');
+            return false;
+        }
+
+        if(data.length === 0) {
+            this.error('data is empty');
+            return false;
+        }
+
+        return true;
+    }
+
+    isValidSelector(selector) {
+        if(selector === null) {
+            this.error('selector does not exist!');
+            return false;
+        }
+
+        return true;
+    }
+
+    get tmpValue() {
+        return this.arr = this.template.match(this.regExp.find);
+    }
+
+    filterTemplate() {
+        let tmpObj = {};
+        let regexString = '';
+        for(const key in this.tmpValue){
+            let property = this.tmpValue[key].replace(this.regExp.remove,'');
+            tmpObj[property] = property;
+            if(parseInt(key) === 0) {
+                regexString += this.tmpValue[key];
+            }else {
+                regexString += '|' + this.tmpValue[key];
+            }
+        }
+
+        const obj =  {
+            tmp: tmpObj,
+            regex: regexString
+        };
+
+        return obj;
+    }
 
     render() {
-
-        this.arr = this.template.match(/{([^}]+)}/g);
-        let value = '';
-        for(const key in this.arr) {
-            let property = this.arr[key].replace(this.regExp.remove, '');
-            this.templateValue[property] = property;
-            if(parseInt(key) === 0) {
-                value += this.arr[key];
-            }else {
-                value += '|' + this.arr[key];
-            }
+        if(!this.isValidData(this.data)) {
+            return false;
         }
 
-        const regex = new RegExp(value, 'gi');
+        if(!this.isValidTmpValue(this.tmpValue)) {
+            return false;
+        }
 
+        const tmpObj = this.filterTemplate().tmp;
+        const string = this.filterTemplate().regex;
+    
+        const regex = new RegExp(string, 'gi');
+    
         for(const key in this.data ) {
-            for(const property in this.templateValue) {
+            if(Object.keys(this.data[key]).length === 0) {
+               continue;
+            }
+
+            for(const property in tmpObj) {
                 this.dataValue['{'+ property + '}'] = this.data[key][property]; 
             }
-            let replace = this.template.replace(regex, (matched) => {
-                return this.dataValue[matched];
-            })
 
+            let replace = this.template.replace(regex, (matched) => this.dataValue[matched]);
+            
             this.DOM = document.querySelector(this.data[key]['selector']);
+
+            if(!this.isValidSelector(this.DOM)) {
+                return false;
+            }
+
             this.DOM.insertAdjacentHTML('beforeend', replace);
         }
+
+        return true;
     }
 }
 export {RenderTemplate};
